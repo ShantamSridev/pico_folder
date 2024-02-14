@@ -4,4 +4,5 @@ sudo apt install cmake gcc-arm-none-eabi libnewlib-arm-none-eabi build-essential
 
 MINICOM
 ls /dev/tty* | grep USB
+
 sudo minicom -D /dev/ttyUSB0
