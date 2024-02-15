@@ -1,15 +1,12 @@
-#include "modules/pico-onewire/api/one_wire.h"
+#include "one_wire.h"
 #include "pico/stdlib.h"
-#include "hardware/pwm.h"
-#include "hardware/gpio.h"
+#include "pindefs.h"
 
-One_wire one_wire(3);
+One_wire one_wire(ONE_WIRE_BUS);
 rom_address_t address{};
 
-void init_onewire(int ONE_WIRE_BUS){
-    One_wire one_wire(ONE_WIRE_BUS);
+void init_onewire(){
     one_wire.init();
-    rom_address_t address{};
 }
 
 float read_temp(){
@@ -18,3 +15,20 @@ float read_temp(){
     one_wire.convert_temperature(address, true, false);
     return one_wire.temperature(address);
 }
+
+// float readTemp() {
+//     // Send the command to get temperatures
+//   sensors.requestTemperatures(); 
+
+//   //print the temperature in Celsius
+//   //Serial.print("Temperature: ");
+//   float newtemp = sensors.getTempCByIndex(0);
+//   if (newtemp>0){
+//     return newtemp;
+//   }
+//   else{
+//     return 0;
+//   }
+//   //Serial.print(newtemp);
+//   //Serial.print("C  |  ");
+// }
