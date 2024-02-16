@@ -5,3 +5,5 @@
 ![Screenshot 2024-02-16 184455](https://github.com/ShantamSridev/pico_folder/assets/50525078/71175e5c-f1f4-41b9-957e-8b50c3c5e130)
 
 ![Screenshot 2024-02-16 184811](https://github.com/ShantamSridev/pico_folder/assets/50525078/520cc540-df36-4772-89c4-6e9974a85573)
+
+https://uk.farnell.com/littelfuse/1-5ke220ca/tvs-diode-1-5kw-185v-bidir-do/dp/2777082?st=1.5KE220CA 
