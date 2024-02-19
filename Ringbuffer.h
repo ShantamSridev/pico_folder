@@ -1,7 +1,7 @@
 template<typename T, unsigned int bufferSize>
-class RingBuffer {
+class Ringbuffer {
 public:
-    RingBuffer() : head(0), tail(0), full(false) {}
+    Ringbuffer() : head(0), tail(0), full(false) {}
 
     bool push(const T &value) {
         if (full) {
