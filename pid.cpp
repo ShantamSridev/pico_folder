@@ -4,7 +4,8 @@
 
 MyPID::MyPID(double p, double i, double d) : PID(p,i,d){
     maxOutput = 35;
-    outputRampRate = 0; //unset
+    minOutput = -35;
+    //outputRampRate = 0; //now can be set over function
     maxPWMOutput = 7.5;
     minPWMOutput = 2.5;
     init();
@@ -18,9 +19,17 @@ void MyPID::setTarget(double target){
     PID.setSetpoint(target);
 }
 
+void MyPID::setOutputLimits(double min,double max){
+    PID.setOutputLimits(min, max);
+}
+
+void MyPID::setOutputRampRate(double rate){
+    PID.setOutputRampRate(rate);
+}
+
 double MyPID::getOutput(double velocity){
 	double velocityOutput = PID.getOutput(velocity);
-    double PWMOutput = mapValue(velocityOutput, -maxOutput, maxOutput, minPWMOutput, maxPWMOutput);
+    double PWMOutput = mapValue(velocityOutput, -minOutput, maxOutput, minPWMOutput, maxPWMOutput);
     return PWMOutput;
 }
 

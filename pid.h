@@ -8,14 +8,8 @@ public:
     void setTarget(double);
     double getOutput(double);
 
-	void setP(double);
-	void setI(double);
-	void setD(double);
-	void setF(double);
 	void setPID(double, double, double);
-	void setPID(double, double, double, double);
 	void setMaxIOutput(double);
-	void setOutputLimits(double);
 	void setOutputLimits(double,double);
 	void setDirection(bool);
 	void setSetpoint(double);
@@ -27,14 +21,13 @@ public:
 private:
     MiniPID PID;
 
-	double clamp(double, double, double);
-	bool bounded(double, double, double);
-	void checkSigns();
 	void init();
     double mapValue(double, double, double, double, double);
 
     double maxPWMOutput;
     double minPWMOutput;
+	double maxOutput; 
+	double minOutput;
     
 	double P;
 	double I;
@@ -44,9 +37,6 @@ private:
 	double maxIOutput;
 	double maxError;
 	double errorSum;
-
-	double maxOutput; 
-	double minOutput;
 
 	double setpoint;
 
