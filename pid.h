@@ -7,16 +7,8 @@ public:
 
     void setTarget(double);
     double getOutput(double);
-
-	void setPID(double, double, double);
-	void setMaxIOutput(double);
 	void setOutputLimits(double,double);
-	void setDirection(bool);
-	void setSetpoint(double);
-	void reset();
 	void setOutputRampRate(double);
-	void setSetpointRange(double);
-	void setOutputFilter(double);
 
 private:
     MiniPID PID;
@@ -28,28 +20,8 @@ private:
     double minPWMOutput;
 	double maxOutput; 
 	double minOutput;
-    
-	double P;
-	double I;
-	double D;
-	double F;
 
-	double maxIOutput;
-	double maxError;
-	double errorSum;
-
-	double setpoint;
-
-	double lastActual;
-
-	bool firstRun;
-	bool reversed;
-
+	double velocityOutput;
+	double PWMOutput;
 	double outputRampRate;
-	double lastOutput;
-
-	double outputFilter;
-
-	double setpointRange;
-
 };

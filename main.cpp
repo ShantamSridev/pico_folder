@@ -1,7 +1,8 @@
 #include "pindefs.h"
 #include <cstdio>
 
-#include "Ringbuffer.h"
+//#include "Ringbuffer.h"
+#include "ringbuffer.h"
 #include "pwm.h"
 #include "onewire.h"
 #include "encoder.h"
@@ -67,18 +68,30 @@ int main() {
 
     MyPID pid = MyPID(1.5,1,0);
     pid.setTarget(37);
+
+    RingBuffer<float, 40> rb;
+
+    rb.push(10.1);
+
+    rb.push(5.1);
+
+    float item;
     
     // Main loop
     while (true) {
         gpio_put(LED_PIN, 1);
         //printf("Check\n");
         //printf("Encoder: %d\n",position);
-        float velocity = calc_velocity(position, prevTime, positionPrev);
-        double output = pid.getOutput(velocity);
-        printf("Output: %f\n", output);
-        pwm_out(output);
+        //float velocity = calc_velocity(position, prevTime, positionPrev);
+        //double output = pid.getOutput(velocity);
+        //printf("Output: %f\n", output);
+        //pwm_out(output);
         //printf("Angle: %f\n",(float(position)/135)*360);
-        printf("Velocity: %f\n", velocity);
+        //printf("Velocity: %f\n", velocity);
+        while(!rb.isEmpty()) {
+            rb.pop(item);
+            printf( "Popped: %f ",item);
+        }
         //printf("Velocity: %f\n", calc_velocity(position, prevTime, positionPrev));
         //printf("Temperature: %3.1foC\n", read_temp(one_wire, address));
         //printf("Current: %f\n", readCurrent());

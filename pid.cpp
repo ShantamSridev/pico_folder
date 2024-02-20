@@ -28,8 +28,8 @@ void MyPID::setOutputRampRate(double rate){
 }
 
 double MyPID::getOutput(double velocity){
-	double velocityOutput = PID.getOutput(velocity);
-    double PWMOutput = mapValue(velocityOutput, -minOutput, maxOutput, minPWMOutput, maxPWMOutput);
+	velocityOutput = PID.getOutput(velocity);
+    PWMOutput = mapValue(velocityOutput, -minOutput, maxOutput, minPWMOutput, maxPWMOutput);
     return PWMOutput;
 }
 
