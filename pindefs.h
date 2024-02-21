@@ -18,7 +18,7 @@
 #define VOLTAGE_NEGATIVE 27 //ADC1 pin 32
 
 //Inductive Sensor
-#define INDUCTIVE 9 //GP9 pin 12
+#define INDUCTIVE 13 //GP9 pin 12
 
 //Default LED
 #define LED_PIN 25
