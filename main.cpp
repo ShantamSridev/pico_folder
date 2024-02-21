@@ -18,11 +18,13 @@
 #include "hardware/adc.h"
 #include "modules/pico-onewire/api/one_wire.h"
 
-int position = 0;
+volatile int position = 0;
 // globals
 long prevTime= 0;
 int positionPrev = 0;
 float target_velocity = 20;
+volatile int last_pos = 0;
+volatile float difference = 0;
 
 
 void isr_pin_a(uint gpio, uint32_t events) {
@@ -34,6 +36,15 @@ void isr_pin_a(uint gpio, uint32_t events) {
         i--; // Moving in the opposite direction
     }
     position = position + i;
+    //printf("Encoder: %d\n",position);
+}
+
+void isr_pin_b(uint gpio, uint32_t events) { //134.4 pulses per motor revolution and using 1.6:1 belt ratio
+ //gives 215 pulses per revolution of wheel
+
+    difference = position - last_pos;
+    last_pos = position;
+    //position = 0;
 }
 
 void init_encoder() {
@@ -46,8 +57,24 @@ void init_encoder() {
     gpio_set_dir(ENCB, GPIO_IN);
     gpio_pull_up(ENCB); // Optional: enable pull-up if necessary
 
-    // Configure interrupt for pin A to trigger on both rising and falling edges
-    gpio_set_irq_enabled_with_callback(ENCA, GPIO_IRQ_EDGE_RISE, true, &isr_pin_a);
+    // Configure interrupt for pin A to trigger on rising edge
+    // gpio_set_irq_enabled_with_callback(ENCA, GPIO_IRQ_EDGE_RISE, true, &isr_pin_a);
+    // gpio_set_irq_enabled(ENCA, GPIO_IRQ_EDGE_RISE, true);
+    // gpio_set_irq_callback(&isr_pin_a);
+    // if (true) irq_set_enabled(IO_IRQ_BANK0, true);
+
+    gpio_init(INDUCTIVE);
+    gpio_set_dir(INDUCTIVE, GPIO_IN);
+    //gpio_pull_up(INDUCTIVE); // Optional: enable pull-up if necessary
+
+    // // Configure interrupt for pin INDUCTIVE to trigger on rising edge
+    // gpio_set_irq_enabled_with_callback(INDUCTIVE, GPIO_IRQ_EDGE_RISE, true, &isr_pin_b);
+
+    gpio_set_irq_enabled(ENCA, GPIO_IRQ_EDGE_RISE, 1);
+    gpio_set_irq_enabled(INDUCTIVE, GPIO_IRQ_EDGE_RISE, 1);
+    gpio_add_raw_irq_handler(ENCA, &isr_pin_a);
+    gpio_add_raw_irq_handler(INDUCTIVE, &isr_pin_b);
+    irq_set_enabled(IO_IRQ_BANK0, true);
 }
 
 int main() {
@@ -81,17 +108,18 @@ int main() {
     while (true) {
         gpio_put(LED_PIN, 1);
         //printf("Check\n");
-        //printf("Encoder: %d\n",position);
+        printf("Encoder: %d\n",position);
+        printf("diff: %f\n",difference);
         //float velocity = calc_velocity(position, prevTime, positionPrev);
         //double output = pid.getOutput(velocity);
         //printf("Output: %f\n", output);
         //pwm_out(output);
         //printf("Angle: %f\n",(float(position)/135)*360);
         //printf("Velocity: %f\n", velocity);
-        while(!rb.isEmpty()) {
-            rb.pop(item);
-            printf( "Popped: %f ",item);
-        }
+        // while(!rb.isEmpty()) {
+        //     rb.pop(item);
+        //     printf( "Popped: %f ",item);
+        // }
         //printf("Velocity: %f\n", calc_velocity(position, prevTime, positionPrev));
         //printf("Temperature: %3.1foC\n", read_temp(one_wire, address));
         //printf("Current: %f\n", readCurrent());
