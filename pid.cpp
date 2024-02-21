@@ -33,6 +33,13 @@ double MyPID::getOutput(double velocity){
     return PWMOutput;
 }
 
+void MyPID::run(){
+    float velocity = calc_velocity();
+        double output = getOutput(velocity);
+        printf("Output: %f\n", output);
+        pwm_out(output);
+}
+
 double MyPID::mapValue(double x, double x_min, double x_max, double y_min, double y_max) {
     return (y_max - y_min) * (x - x_min) / (x_max - x_min) + y_min;
 }

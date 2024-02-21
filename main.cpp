@@ -1,7 +1,6 @@
 #include "pindefs.h"
 #include <cstdio>
 
-//#include "Ringbuffer.h"
 #include "ringbuffer.h"
 #include "pwm.h"
 #include "onewire.h"
@@ -17,11 +16,6 @@
 #include "hardware/timer.h"
 #include "hardware/adc.h"
 #include "modules/pico-onewire/api/one_wire.h"
-
-// globals
-long prevTime= 0;
-int positionPrev = 0;
-float target_velocity = 20;
 
 
 int main() {
@@ -56,12 +50,8 @@ int main() {
         gpio_put(LED_PIN, 1);
         //printf("Check\n");
         //printf("Encoder: %d\n",position);
-        printf("Inductive: %d\n",ah);
         //printf("diff: %f\n",difference);
-        //float velocity = calc_velocity(position, prevTime, positionPrev);
-        //double output = pid.getOutput(velocity);
-        //printf("Output: %f\n", output);
-        //pwm_out(output);
+        pid.run();
         //printf("Angle: %f\n",(float(position)/135)*360);
         //printf("Velocity: %f\n", velocity);
         // while(!rb.isEmpty()) {

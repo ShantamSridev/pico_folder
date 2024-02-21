@@ -1,5 +1,7 @@
 #include "pindefs.h"
 #include "modules/MiniPID/MiniPID.h"
+#include "velocity.h"
+#include "pwm.h"
 
 class MyPID{
 public:
@@ -9,6 +11,7 @@ public:
     double getOutput(double);
 	void setOutputLimits(double,double);
 	void setOutputRampRate(double);
+	void run();
 
 private:
     MiniPID PID;

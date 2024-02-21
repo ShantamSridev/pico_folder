@@ -13,6 +13,9 @@ pico_sdk_init()
 add_executable(${PROJECT}
     main.cpp
     pid.cpp
+    encoder.cpp
+    pwm.cpp
+    velocity.cpp
     modules/MiniPID/MiniPID.cpp
 )
 
