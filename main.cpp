@@ -34,8 +34,9 @@ int main() {
     gpio_init(LED_PIN);
     gpio_set_dir(LED_PIN, GPIO_OUT);
 
-    MyPID pid = MyPID(1.5,1,0);
-    pid.setTarget(37);
+    MyPID pid = MyPID(1,1,0);
+    pid.setTarget(30);
+    //pid.setOutputRampRate(1);
 
     RingBuffer<float, 40> rb;
 
@@ -51,9 +52,15 @@ int main() {
         //printf("Check\n");
         //printf("Encoder: %d\n",position);
         //printf("diff: %f\n",difference);
+        //calc_velocity();
         pid.run();
+        //float velocity = calc_velocity();
+        printf("Velocity: %f\n", vel);
+        // double output = pid.getOutput(velocity);
+        // printf("Output: %f\n", output);
+        // pwm_out(output);
+        
         //printf("Angle: %f\n",(float(position)/135)*360);
-        //printf("Velocity: %f\n", velocity);
         // while(!rb.isEmpty()) {
         //     rb.pop(item);
         //     printf( "Popped: %f ",item);

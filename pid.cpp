@@ -3,11 +3,11 @@
 
 
 MyPID::MyPID(double p, double i, double d) : PID(p,i,d){
-    maxOutput = 35;
-    minOutput = -35;
+    maxOutput = 48;
+    minOutput = -48; //48 at 15V
     //outputRampRate = 0; //now can be set over function
-    maxPWMOutput = 7.5;
-    minPWMOutput = 2.5;
+    maxPWMOutput = 7.51;
+    minPWMOutput = 2.51;
     init();
 }
 
@@ -29,17 +29,21 @@ void MyPID::setOutputRampRate(double rate){
 
 double MyPID::getOutput(double velocity){
 	velocityOutput = PID.getOutput(velocity);
-    PWMOutput = mapValue(velocityOutput, -minOutput, maxOutput, minPWMOutput, maxPWMOutput);
+    PWMOutput = mapValue(velocityOutput, minOutput, maxOutput, minPWMOutput, maxPWMOutput);
     return PWMOutput;
 }
 
 void MyPID::run(){
     float velocity = calc_velocity();
-        double output = getOutput(velocity);
-        printf("Output: %f\n", output);
-        pwm_out(output);
+    printf("velocity : %f\n" , velocity);
+    double output = getOutput(velocity);
+    pwm_out(output);
 }
 
-double MyPID::mapValue(double x, double x_min, double x_max, double y_min, double y_max) {
-    return (y_max - y_min) * (x - x_min) / (x_max - x_min) + y_min;
+double MyPID::mapValue(double  input, double  inputStart, double  inputEnd, double  outputStart, double  outputEnd) {
+    // Calculate the slope (m) of the line connecting the input and output ranges
+    double  slope = (outputEnd - outputStart) / (inputEnd - inputStart);
+    // Apply the linear transformation formula (y = mx + b)
+    double  output = outputStart + slope * (input - inputStart);
+    return output;
 }

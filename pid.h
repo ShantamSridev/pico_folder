@@ -2,6 +2,7 @@
 #include "modules/MiniPID/MiniPID.h"
 #include "velocity.h"
 #include "pwm.h"
+#include "encoder.h"
 
 class MyPID{
 public:

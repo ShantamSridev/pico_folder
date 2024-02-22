@@ -4,6 +4,7 @@
     volatile int last_pos = 0;
     volatile float difference = 0.0f;
     volatile int position = 0;
+    volatile int rev_check = 0;
 
     void isr_pin_a() {
         bool stateB = gpio_get(ENCB); // Read the current state of pin B
@@ -13,16 +14,17 @@
         } else {
             i--; // Moving in the opposite direction
         }
-        position = position + i;
+        position = position - i;
+        rev_check = position;
     }
 
     void isr_pin_b() { //134.4 pulses per motor revolution and using 1.6:1 belt ratio
     //gives 215 pulses per revolution of wheel
 
         long newT = time_us_32();
-        difference = position - last_pos;
-        last_pos = position;
-        position = 0;
+        difference = rev_check - last_pos;
+        last_pos = rev_check;
+        rev_check = 0;
     }
 
     void gpio_callback(uint gpio, uint32_t events) {

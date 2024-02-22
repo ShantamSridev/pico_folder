@@ -9,6 +9,7 @@
     extern volatile int last_pos;
     extern volatile float difference;
     extern volatile int position;
+    extern volatile int rev_check;
 
     void isr_pin_a();
 

@@ -9,8 +9,9 @@
 
 extern volatile long prevTime;
 extern volatile int positionPrev;
+extern volatile double vel;
 //volatile float target_velocity = 20;
 
-float calc_velocity();
+double calc_velocity();
 
 #endif // VELOCITY_H
