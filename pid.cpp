@@ -35,7 +35,6 @@ double MyPID::getOutput(double velocity){
 
 void MyPID::run(){
     float velocity = calc_velocity();
-    printf("velocity : %f\n" , velocity);
     double output = getOutput(velocity);
     pwm_out(output);
 }

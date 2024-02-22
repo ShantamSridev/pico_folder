@@ -49,23 +49,21 @@ int main() {
     // Main loop
     while (true) {
         gpio_put(LED_PIN, 1);
-        //printf("Check\n");
+
         //printf("Encoder: %d\n",position);
-        //printf("diff: %f\n",difference);
-        //calc_velocity();
+        printf("diff: %d\n",rev_check);
+
         pid.run();
+
         //float velocity = calc_velocity();
-        printf("Velocity: %f\n", vel);
-        // double output = pid.getOutput(velocity);
-        // printf("Output: %f\n", output);
-        // pwm_out(output);
-        
+        //printf("Velocity: %f\n", vel);
+
         //printf("Angle: %f\n",(float(position)/135)*360);
         // while(!rb.isEmpty()) {
         //     rb.pop(item);
         //     printf( "Popped: %f ",item);
         // }
-        //printf("Velocity: %f\n", calc_velocity(position, prevTime, positionPrev));
+        
         //printf("Temperature: %3.1foC\n", read_temp(one_wire, address));
         //printf("Current: %f\n", readCurrent());
         //printf("Voltage: %f\n", read_voltage());
