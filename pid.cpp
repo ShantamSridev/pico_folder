@@ -13,6 +13,7 @@ MyPID::MyPID(double p, double i, double d) : PID(p,i,d){
 
 void MyPID::init(){
     PID.setOutputLimits(maxOutput);
+    PID.setSetpoint(0);
 }
 
 void MyPID::setTarget(double target){

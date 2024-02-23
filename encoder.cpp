@@ -2,10 +2,11 @@
 
     // Definitions of external variables
     volatile int last_pos = 0;
-    volatile float difference = 0.0f;
+    volatile double diff = 0;
     volatile int position = 0;
     volatile int rev_check = 0;
     volatile long oldT = 0;
+    volatile int pulse = 0;
 
     void isr_pin_a() {
         bool stateB = gpio_get(ENCB); // Read the current state of pin B
@@ -28,13 +29,13 @@
 
         long newT = time_us_32();
         if ((newT-oldT)>200000){
-            difference = rev_check - last_pos;
-            printf("%d\n",rev_check);
+            diff = rev_check - last_pos;
+            //printf("%d\n",rev_check);
             last_pos = rev_check;
             rev_check = 0;
             oldT = newT;
+            pulse++;
         }
-
         restore_interrupts(int_status);
     }
 

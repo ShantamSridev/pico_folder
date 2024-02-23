@@ -16,6 +16,7 @@ add_executable(${PROJECT}
     encoder.cpp
     pwm.cpp
     velocity.cpp
+    angle.cpp
     modules/MiniPID/MiniPID.cpp
 )
 

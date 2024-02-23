@@ -1,3 +1,6 @@
+#ifndef PID_H
+#define PID_H
+
 #include "pindefs.h"
 #include "modules/MiniPID/MiniPID.h"
 #include "velocity.h"
@@ -29,3 +32,4 @@ private:
 	double PWMOutput;
 	double outputRampRate;
 };
+#endif
