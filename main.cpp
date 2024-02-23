@@ -37,8 +37,8 @@ int main() {
 
     MyPID pid = MyPID(1,1,0);
     pid.setTarget(0);
-    angle myAngle;
     //pid.setOutputRampRate(1);
+    MyAngle angle;
 
     // RingBuffer<float, 40> rb;
 
@@ -47,7 +47,7 @@ int main() {
     // rb.push(5.1);
 
     // float item;
-    double angle = 300;
+    double Requiredangle = 300;
     // Main loop
     while (true) {
         gpio_put(LED_PIN, 1);
@@ -55,18 +55,18 @@ int main() {
         //printf("Encoder: %d\n",position);
         //printf("diff: %d\n",rev_check);
 
-        myAngle.runAngle(pid);
-        myAngle.setAngle(angle,pid);
+        angle.runAngleInit(pid);
+        angle.setAngle(Requiredangle,pid);
 
         pid.setTarget(30);
         pid.run();
         sleep_ms(10000);
 
-        printf("Angle : %f\n", myAngle.getAngle());
+        printf("Angle : %f\n", angle.getAngle());
 
         sleep_ms(5000);
 
-        printf("Angle : %f\n", myAngle.getAngle());
+        printf("Angle : %f\n", angle.getAngle());
 
         pid.setTarget(0);
         pid.run();

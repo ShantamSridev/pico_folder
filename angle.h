@@ -8,17 +8,17 @@
     #include "encoder.h"
     #include "pid.h"
 
-    class angle{
+    class MyAngle{
     public:
-        angle();
+        MyAngle();
 
-        void runAngle(MyPID);
+        void runAngleInit(MyPID);
         void setAngle(double, MyPID);
         double getAngle();
 
     private:
         bool flag;
-        int angleToClosestPulse(double);
+        int angleToPulse(double);
         double findAngle();
     };
     #endif
