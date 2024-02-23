@@ -3,6 +3,7 @@
 
     #include "pindefs.h"
     #include <cstdio>
+    #include <cmath>
     #include "pico/stdlib.h"
     #include "encoder.h"
     #include "pid.h"
@@ -11,11 +12,13 @@
     public:
         angle();
 
-        double findAngle();
         void runAngle(MyPID);
         void setAngle(double, MyPID);
+        double getAngle();
 
     private:
         bool flag;
+        int angleToClosestPulse(double);
+        double findAngle();
     };
     #endif

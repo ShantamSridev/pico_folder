@@ -5,7 +5,7 @@ angle::angle(){
 }
 
 double angle::findAngle(){
-    return rev_check*0.6222222222;
+    return rev_check/0.6222222222;
 }
 
 void angle::runAngle(MyPID control){
@@ -22,14 +22,35 @@ void angle::runAngle(MyPID control){
 }
 
 void angle::setAngle(double ReqAngle, MyPID control){
-    printf("Starting setAngle");
+    printf("Starting setAngle\n");
     control.setTarget(8);
     control.run();
     double currentAngle  = findAngle();
-    while (currentAngle != ReqAngle){
+    int Req_Pulse = angleToClosestPulse(ReqAngle);
+    while (rev_check != Req_Pulse){
           printf("rev: %d\n",rev_check);
     }
-    printf("Finished setAngle");
+    printf("rev: %d\n",rev_check);
+    printf("Finished setAngle\n");
     control.setTarget(0);
     control.run();
+}
+
+int angle::angleToClosestPulse(double requiredAngle) {
+    const int totalPulses = 224;
+    const int totalDegrees = 360;
+    const float degreesPerPulse = static_cast<float>(totalDegrees) / totalPulses;
+
+    // Calculate the target pulse for the required angle
+    double targetPulse = requiredAngle / degreesPerPulse;
+
+    // Round to nearest pulse
+    int closestPulse = std::round(targetPulse);
+
+    return closestPulse;
+}
+
+double angle::getAngle(){
+    double angle = findAngle();
+    return angle;
 }

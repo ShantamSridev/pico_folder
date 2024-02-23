@@ -47,7 +47,7 @@ int main() {
     // rb.push(5.1);
 
     // float item;
-    
+    double angle = 300;
     // Main loop
     while (true) {
         gpio_put(LED_PIN, 1);
@@ -56,18 +56,22 @@ int main() {
         //printf("diff: %d\n",rev_check);
 
         myAngle.runAngle(pid);
-        myAngle.setAngle(180,pid);
-        // printf("Starting runAngle");
-        // pid.setTarget(10);
-        // pid.run();
-        // while (flag){
-        //   flag = (rev_check == 224 && pulse >= 2) ? false : true;
-        //   printf("rev: %d\n",rev_check);
-        // }
-        // printf("Finished runAngle");
-        // pid.setTarget(0);
-        // pid.run();
-        while (true){}
+        myAngle.setAngle(angle,pid);
+
+        pid.setTarget(30);
+        pid.run();
+        sleep_ms(10000);
+
+        printf("Angle : %f\n", myAngle.getAngle());
+
+        sleep_ms(5000);
+
+        printf("Angle : %f\n", myAngle.getAngle());
+
+        pid.setTarget(0);
+        pid.run();
+
+        while(true){}
         //pid.run();
 
         //float velocity = calc_velocity();
