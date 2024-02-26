@@ -27,6 +27,8 @@ int main() {
     init_pwm();
     init_encoder();
     init_currentsensor();
+    //test
+    
     
     One_wire one_wire(ONE_WIRE_BUS);
     one_wire.init();
