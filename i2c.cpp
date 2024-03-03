@@ -17,6 +17,7 @@ void i2c_slave_handler(i2c_inst_t *i2c, i2c_slave_event_t event) {
         } else {
             // save into memory
             context.mem[context.mem_address] = i2c_read_byte(i2c);
+            printf("%d\n", context.mem[context.mem_address]);
             context.mem_address++;
         }
         break;
