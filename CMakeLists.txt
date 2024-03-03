@@ -34,6 +34,7 @@ add_subdirectory(modules/pico_i2c_slave)
 
 target_link_libraries(${PROJECT} 
     pico_stdlib 
+    pico_multicore
     hardware_pwm 
     hardware_gpio
     hardware_timer
