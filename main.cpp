@@ -65,8 +65,7 @@ int main() {
     gpio_pull_up(2);
     gpio_pull_up(3);
 
-    //uart_puts(UART_ID, "Voltage-i2c on Pico");
-    
+
     uint8_t rxdata[4];
     uint8_t txdata[2];
     char message[20];
@@ -75,21 +74,15 @@ int main() {
         // 3 bytes received - byte 0 is cmd (used as lower byte) byte 2 is higher - byte 3 is 0
            if (i2c_get_read_available(i2c1) < 3) continue;
         i2c_read_raw_blocking (i2c1, rxdata, 3);
-        //sprintf (message, "Rx: %d %d %d\r\n", rxdata[0], rxdata[1], rxdata[2]);
-        //uart_puts(UART_ID, message);
-        //sprintf (message, "Value %d\r\n", rxdata[0]+(rxdata[1]<<8));
-        sleep_ms(5);
-        //uart_puts(UART_ID, message);
+        sleep_ms(1);
         
         // Respond with ADC value (in milivolts)
         uint16_t adc_value=10;
         // Note that this will drop fraction rather than round, but close enough
-        int value = (int) adc_value;
+        int value = 10;
         txdata[0] = value & 0xFF;
         txdata[1] = value >> 8;
-        //sprintf (message, "Tx: %d %d - %d\r\n", txdata[0], txdata[1], value);
-        sleep_ms(5);
-        //uart_puts(UART_ID, message);
+        sleep_ms(0.1);
         // Sends data in mv (as int)
         i2c_write_raw_blocking(i2c1, txdata, 2);
         
