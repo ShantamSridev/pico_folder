@@ -34,11 +34,17 @@ void i2c_slave_handler(i2c_inst_t *i2c, i2c_slave_event_t event) {
             // Read the data from master
             while (i2c_get_read_available(i2c)){
                 if (context.mem_address_written){
-                    context.mem[context.mem_address] = i2c_read_byte_raw(i2c);
-                    context.mem_address++;
-                    printf("check");
-                    sleep_us(1);
-                    
+                    uint8_t temp = i2c_read_byte_raw(i2c);
+                    if (temp !=  0xFF){
+                        context.mem[context.mem_address] = temp;
+                        context.mem_address++;
+                        printf("$");
+                        sleep_us(1);
+                    }
+                    else{
+                        printf("requesting data");
+                        printf("address for send = %02x\n ", context.mem_address);
+                    }
                 }
                 else{
                     //i2c_read_raw_blocking (i2c1, context.mem_comm, 5);
@@ -46,21 +52,20 @@ void i2c_slave_handler(i2c_inst_t *i2c, i2c_slave_event_t event) {
                     context.mem_address = i2c_read_byte_raw(i2c);
                     printf("address = %02x\n ", context.mem_address);
                     context.mem_address_written = true;
-
-                }
+            }
             }
             break;
 
         case I2C_SLAVE_REQUEST:
-            // // Send data to master
-            // for (size_t i = 0; i < sizeof(DATA_TO_SEND); ++i) {
-            //     i2c_get_hw(i2c)->dr = DATA_TO_SEND[i];
-            // }
-            // break;
+            // load from memory
+            printf("address for send = %02x\n ", context.mem_address);
+            i2c_write_byte_raw(i2c, context.mem[context.mem_address]);
+            context.mem_address++;
+            break;
 
         case I2C_SLAVE_FINISH: // master has signalled Stop / Restart
-        context.mem_address_written = false;
-        break;
+            context.mem_address_written = false;
+            break;
 
         default:
             break;
