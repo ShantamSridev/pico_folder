@@ -44,3 +44,6 @@
 // You'll need to wire pin GP4 to GP6 (SDA), and pin GP5 to GP7 (SCL).
 #define I2C_SLAVE_SDA_PIN 4     // 4
 #define I2C_SLAVE_SCL_PIN 5     // 5
+
+
+#define PID_BUF_START 5
