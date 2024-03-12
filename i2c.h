@@ -16,7 +16,7 @@
 // for each byte transferred, looping back to 0 upon reaching the end. Reading is done
 // sequentially from the current memory address.
 
-static struct
+volatile static struct
 {
     uint8_t mem[256]; //CAN JUST MAKE THIS LARGER AND WRITE DIRECTLY INTO THIS FOR RING VARIABLES
     uint8_t mem_address;
