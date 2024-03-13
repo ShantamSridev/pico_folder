@@ -26,17 +26,17 @@ void core1_main() {
     // memcpy(context.mem, sourceArray, 7 * sizeof(uint8_t));
     //memset(context.mem, 0xFF, sizeof(context.mem));
 
-    // while (true) {
-    //     // printf("address = %d\n",command_address);
-    //     // printf("value = %f\n",command_data);
-    //     int y = context.mem_address;
-    //     printf("\n");
-    //     for (int i = 0; i < 10; i++) {
-    //         printf("%02x ", context.mem[i]); // Print byte in hex format, padded with zeros
-    //     }
-    //     printf("\n"); // New line after printing all bytes
-    //     sleep_ms(1000);
-    // }
+    while (true) {
+        // printf("address = %d\n",command_address);
+        // printf("value = %f\n",command_data);
+        int y = context.mem_address;
+        printf("\n");
+        for (int i = 0; i < 10; i++) {
+            printf("%02x ", context.mem[i]); // Print byte in hex format, padded with zeros
+        }
+        printf("\n"); // New line after printing all bytes
+        sleep_ms(1000);
+    }
 }
 
 // .----------------------------------------------------------.
@@ -48,14 +48,14 @@ int main(void){
     multicore_launch_core1(core1_main);
 
     while (true) {
-        // printf("address = %d\n",command_address);
-        // printf("value = %f\n",command_data);
-        int y = context.mem_address;
-        printf("\n");
-        for (int i = 0; i < 10; i++) {
-            printf("%02x ", context.mem[i]); // Print byte in hex format, padded with zeros
-        }
-        printf("\n"); // New line after printing all bytes
-        sleep_ms(1000);
+    //     // printf("address = %d\n",command_address);
+    //     // printf("value = %f\n",command_data);
+    //     int y = context.mem_address;
+    //     printf("\n");
+    //     for (int i = 0; i < 10; i++) {
+    //         printf("%02x ", context.mem[i]); // Print byte in hex format, padded with zeros
+    //     }
+    //     printf("\n"); // New line after printing all bytes
+    //     sleep_ms(1000);
     }
 }

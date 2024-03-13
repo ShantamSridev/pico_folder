@@ -10,30 +10,35 @@ void i2c_slave_handler(i2c_inst_t *i2c, i2c_slave_event_t event) {
             while (i2c_get_read_available(i2c)){
                 if (context.mem_address_written){
                     uint8_t temp = i2c_read_byte_raw(i2c);
-                    if (temp !=  0xFF){
-                        context.mem[context.mem_address] = temp;
-                        context.mem_address++;
-                        printf("$");
-                        sleep_us(1);
-                    }
-                    else{
-                        printf("requesting data");
-                        printf("address for send = %02x\n ", context.mem_address);
-                    }
+                    context.mem[context.mem_address] = temp;
+                    context.mem_address++;
+                    printf("$ %02x\n", context.mem_address);
+                    sleep_us(1);
+
+                    // if (temp !=  0xFF){
+                    //     context.mem[context.mem_address] = temp;
+                    //     //printf()
+                    //     context.mem_address++;
+                    //     printf("$ %02x\n ", temp);
+                    //     sleep_us(1);
+                    // }
+                    // else{
+                    //     printf("requesting data");
+                    //     printf("address for send = %02x\n ", context.mem_address);
+                    // }
                 }
                 else{
                     context.mem_address = i2c_read_byte_raw(i2c);
-                    printf("address = %02x\n ", context.mem_address);
+                    printf("address = %02x\n", context.mem_address);
                     context.mem_address_written = true;
                 }
-
             }
             break;
 
         case I2C_SLAVE_REQUEST:
             // load from memory
             //getstruct(context.mem_address);
-            context.mem_address = 224;
+            context.mem_address = 224; //DOES NOT WORK CUZ CANT INCREMENT
             printf("address for send = %02x\n ", context.mem_address);
             i2c_write_byte_raw(i2c, context.mem[context.mem_address]);
             context.mem_address++;
