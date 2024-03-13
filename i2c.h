@@ -16,15 +16,15 @@
 // for each byte transferred, looping back to 0 upon reaching the end. Reading is done
 // sequentially from the current memory address.
 
-volatile static struct
-{
-    uint8_t mem[256]; //CAN JUST MAKE THIS LARGER AND WRITE DIRECTLY INTO THIS FOR RING VARIABLES
+typedef struct {
+    uint8_t mem[256];
     uint8_t mem_address;
     uint8_t mem_payload[4];
     uint8_t mem_comm[5];
     bool mem_address_written;
-} context;
+} I2CContext;
 
+extern volatile I2CContext context;
 
 // Our handler is called from the I2C ISR, so it must complete quickly. Blocking calls /
 // printing to stdio may interfere with interrupt handling.

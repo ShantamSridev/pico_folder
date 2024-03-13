@@ -1,5 +1,7 @@
 #include "i2c.h"
 
+volatile I2CContext context;
+
 // Callback for when data is received from the master
 void i2c_slave_handler(i2c_inst_t *i2c, i2c_slave_event_t event) {
     static size_t index = 0;
@@ -14,18 +16,6 @@ void i2c_slave_handler(i2c_inst_t *i2c, i2c_slave_event_t event) {
                     context.mem_address++;
                     printf("$ %02x\n", context.mem_address);
                     sleep_us(1);
-
-                    // if (temp !=  0xFF){
-                    //     context.mem[context.mem_address] = temp;
-                    //     //printf()
-                    //     context.mem_address++;
-                    //     printf("$ %02x\n ", temp);
-                    //     sleep_us(1);
-                    // }
-                    // else{
-                    //     printf("requesting data");
-                    //     printf("address for send = %02x\n ", context.mem_address);
-                    // }
                 }
                 else{
                     context.mem_address = i2c_read_byte_raw(i2c);

@@ -24,9 +24,6 @@
 #define LED_PIN 25
 
 
-
-
-
 // I2C slave configuration
 //#define I2C_SLAVE_ADDRESS 0x17 //TEST I2C Address PICO NORMAL
 #define I2C_SLAVE_ADDRESS 0x3E //TEST I2C Address PICO W
