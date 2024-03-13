@@ -18,6 +18,7 @@ add_executable(${PROJECT}
     velocity.cpp
     angle.cpp
     i2c.cpp
+    structure.cpp
     modules/MiniPID/MiniPID.cpp
 )
 

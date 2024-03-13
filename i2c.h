@@ -10,6 +10,7 @@
 #include "hardware/irq.h"
 #include <hardware/i2c.h>
 #include <pico/i2c_slave.h>
+#include "structure.h"
 
 // The slave implements a 256 byte memory. To write a series of bytes, the master first
 // writes the memory address, followed by the data. The address is automatically incremented

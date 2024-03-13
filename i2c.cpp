@@ -21,6 +21,7 @@ void i2c_slave_handler(i2c_inst_t *i2c, i2c_slave_event_t event) {
                     context.mem_address = i2c_read_byte_raw(i2c);
                     printf("address = %02x\n", context.mem_address);
                     context.mem_address_written = true;
+                    add_to_fifo(context.mem_address); 
                 }
             }
             break;
