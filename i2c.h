@@ -27,6 +27,9 @@ typedef struct {
 
 extern volatile I2CContext context;
 
+//MAIN BUFFER STORING ALL NON RINGBUFFER VALUES
+extern volatile float multicore_mem[64]; //for 256 bytes of the mem buffer
+
 // Our handler is called from the I2C ISR, so it must complete quickly. Blocking calls /
 // printing to stdio may interfere with interrupt handling.
 void i2c_slave_handler(i2c_inst_t *i2c, i2c_slave_event_t event);

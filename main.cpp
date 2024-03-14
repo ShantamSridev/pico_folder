@@ -8,12 +8,10 @@
 #include "pico/multicore.h"
 #include "i2c.h"
 #include "structure.h"
+#include "pindefs.h"
 
 #include "pico/stdlib.h"
 #include "hardware/i2c.h"   
-
-// const uint8_t DATA_TO_SEND[32] = {/* Initialize with your data */};
-// uint8_t received_data[5];
 
 // .----------------------------------------------------------.
 // | Core 1 code                                              |

@@ -10,7 +10,7 @@
 class MyPID{
 public:
 	MyPID(double, double, double);
-
+	void setPIDParams();
     void setTarget(double);
     double getOutput(double);
 	void setOutputLimits(double,double);

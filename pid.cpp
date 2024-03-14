@@ -1,6 +1,7 @@
 
 #include "pid.h"
 
+volatile float multicore_mem[64];
 
 MyPID::MyPID(double p, double i, double d) : PID(p,i,d){
     maxOutput = 48;
@@ -14,6 +15,13 @@ MyPID::MyPID(double p, double i, double d) : PID(p,i,d){
 void MyPID::init(){
     PID.setOutputLimits(maxOutput);
     PID.setSetpoint(0);
+}
+
+void MyPID::setPIDParams(){
+    PID.setP();
+    multicore_mem[] = ; //Convert the mem buffer, convert to float put it onto the set P and hten put it into the multicore_mem biffer so that irt can be directly accessed by the requests.
+    PID.SetI();
+    PID.SetD();
 }
 
 void MyPID::setTarget(double target){

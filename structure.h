@@ -12,7 +12,7 @@ constexpr size_t FIFO_SIZE = 2;
 
 // Shared FIFO structure
 struct SharedFIFO {
-    std::array<int, FIFO_SIZE> buffer; // Example buffer for integers
+    std::array<int, FIFO_SIZE> buffer; // buffer for FIFO multicore messaging
     std::atomic<size_t> writeIndex = {0};
     std::atomic<size_t> readIndex = {0};
 };
