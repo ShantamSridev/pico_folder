@@ -6,11 +6,15 @@
 #include "velocity.h"
 #include "pwm.h"
 #include "encoder.h"
+#include "i2c.h"
 
 class MyPID{
 public:
 	MyPID(double, double, double);
-	void setPIDParams();
+	void setPIDParams(double,double,double);
+	void setP(double);
+	void setI(double);
+	void setD(double);
     void setTarget(double);
     double getOutput(double);
 	void setOutputLimits(double,double);

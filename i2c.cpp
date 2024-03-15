@@ -56,3 +56,27 @@ void setup_slave(){
     gpio_pull_up(I2C_SLAVE_SCL_PIN);
     i2c_slave_init(i2c1, I2C_SLAVE_ADDRESS, &i2c_slave_handler);
 }
+
+
+// float memToFloat(uint8_t address) {
+//     if (address + 4 > sizeof(context.mem)) {
+//         printf("out of range address: memToFloat()")
+//     }
+
+//     float result;
+//     // Copy bytes starting from the given address into the float variable
+//     std::memcpy(&result, &context.mem[address], sizeof(result));
+//     return result;
+// }
+
+float memToFloat(uint8_t address) {
+    if (address + 4 > sizeof(context.mem)) {
+        // Handle error, e.g., return 0, set an error flag, etc.
+    }
+
+    float result;
+    // Cast away the 'volatile' (with caution)
+    const void* source = const_cast<const void*>(reinterpret_cast<const volatile void*>(&context.mem[address]));
+    std::memcpy(&result, source, sizeof(result));
+    return result;
+}

@@ -11,6 +11,7 @@
 #include <hardware/i2c.h>
 #include <pico/i2c_slave.h>
 #include "structure.h"
+#include <cstring> // for std::memcpy
 
 // The slave implements a 256 byte memory. To write a series of bytes, the master first
 // writes the memory address, followed by the data. The address is automatically incremented
@@ -36,4 +37,5 @@ void i2c_slave_handler(i2c_inst_t *i2c, i2c_slave_event_t event);
 
 void setup_slave();
 
+float memToFloat(uint8_t address);
 #endif

@@ -8,12 +8,14 @@
     #include "encoder.h"
     #include "pid.h"
 
+    class MyPID;
+
     class MyAngle{
     public:
         MyAngle();
 
-        void runAngleInit(MyPID);
-        void setAngle(double, MyPID);
+        void runAngleInit(MyPID& pid);  // Accept MyPID by reference
+        void setAngle(double angle, MyPID& pid);  // Accept MyPID by reference
         double getAngle();
 
     private:

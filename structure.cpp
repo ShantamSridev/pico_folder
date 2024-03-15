@@ -3,7 +3,7 @@
 // Define the shared FIFO instance
 SharedFIFO fifo;
 
-void process_from_fifo() { //CORE0
+void process_from_fifo(MyPID& pid, MyAngle& angle) { //CORE0
     while (fifo.readIndex != fifo.writeIndex) {
         // There is data in the FIFO
         int item = fifo.buffer[fifo.readIndex];
@@ -12,7 +12,7 @@ void process_from_fifo() { //CORE0
         // Process the item
         // For example, just print it out
         printf("Processing item: %d\n", item);
-        getstruct(uint8_t(item));
+        getstruct(uint8_t(item), pid, angle);
         // Call specific function here
     }
 }
@@ -30,12 +30,12 @@ void add_to_fifo(int item) { //CORE1
 }
 
 
-void getstruct(uint8_t addin){
+void getstruct(uint8_t addin, MyPID& pid, MyAngle& angle){
     switch(addin){
         case 0:
             // Action for addin = 0
             break;
-        case 4:
+        case I2C_GET_ANGLE:
             // Action for addin = 4
             break;
         case 8:
@@ -44,20 +44,35 @@ void getstruct(uint8_t addin){
         case 12:
             // Action for addin = 12
             break;
-        case 16:
+        case I2C_SETANGLE:
             // Action for addin = 16
+            float Requiredangle = memToFloat(I2C_SETANGLE);
+            angle.setAngle(Requiredangle,pid);
+            multicore_mem[I2C_SETANGLE] = Requiredangle;
             break;
-        case 20:
+        case I2C_SETSPEED:
             // Action for addin = 20
+            float target = memToFloat(I2C_SETSPEED);
+            pid.setTarget(target);
+            multicore_mem[I2C_SETSPEED] = target;
             break;
-        case 24:
+        case I2C_SETP:
             // Action for addin = 24
+            float P = memToFloat(I2C_SETP);
+            pid.setP(P);
+            multicore_mem[I2C_SETP] = P;
             break;
-        case 28:
+        case I2C_SETI:
             // Action for addin = 28
+            float I = memToFloat(I2C_SETI);
+            pid.setI(I);
+            multicore_mem[I2C_SETI] = I;
             break;
-        case 32:
+        case I2C_SETD:
             // Action for addin = 32
+            float D = memToFloat(I2C_SETD);
+            pid.setD(D);
+            multicore_mem[I2C_SETD] = D;
             break;
         case 36:
             // Action for addin = 36
@@ -203,27 +218,6 @@ void getstruct(uint8_t addin){
         case 224:
             // ONWARDS RESERVED FOR REQUEST
             break;
-        // case 228:
-        //     // Action for addin = 228
-        //     break;
-        // case 232:
-        //     // Action for addin = 232
-        //     break;
-        // case 236:
-        //     // Action for addin = 236
-        //     break;
-        // case 240:
-        //     // Action for addin = 240
-        //     break;
-        // case 244:
-        //     // Action for addin = 244
-        //     break;
-        // case 248:
-        //     // Action for addin = 248
-        //     break;
-        // case 252:
-        //     // Action for addin = 252
-        //     break;
         default:
             // Default action if addin is not a multiple of 4 or out of range
             printf("DONE GOOFED. Not a multiple of 4 or accessing somethign wrong.");

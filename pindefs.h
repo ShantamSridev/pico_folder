@@ -36,5 +36,19 @@
 #define I2C_SLAVE_SCL_PIN 3     // 5
 
 
+//I2C MEMORY ADDRESSES
 
-#define PID_BUF_START 5
+//MOTION
+#define I2C_GET_ANGLE 4
+#define I2C_SETANGLE 16
+#define I2C_SETSPEED 20
+
+//PID
+#define I2C_SETP 24
+#define I2C_SETI 28
+#define I2C_SETD 32
+#define I2C_SETPIDRATE 36
+#define I2C_SETPIDUP 40
+#define I2C_SETPIDLOW 44
+
+

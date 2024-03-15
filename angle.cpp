@@ -8,7 +8,7 @@ double MyAngle::findAngle(){
     return rev_check/0.6222222222;
 }
 
-void MyAngle::runAngleInit(MyPID control){
+void MyAngle::runAngleInit(MyPID& control){
     printf("Starting runAngleInit\n");
         control.setTarget(10);
         control.run();
@@ -20,7 +20,7 @@ void MyAngle::runAngleInit(MyPID control){
         control.run();
 }
 
-void MyAngle::setAngle(double ReqAngle, MyPID control){
+void MyAngle::setAngle(double ReqAngle, MyPID& control){
     printf("Starting setAngle\n");
     control.setTarget(8);
     control.run();

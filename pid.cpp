@@ -17,11 +17,22 @@ void MyPID::init(){
     PID.setSetpoint(0);
 }
 
-void MyPID::setPIDParams(){
-    PID.setP();
-    multicore_mem[] = ; //Convert the mem buffer, convert to float put it onto the set P and hten put it into the multicore_mem biffer so that irt can be directly accessed by the requests.
-    PID.SetI();
-    PID.SetD();
+void MyPID::setPIDParams(double P, double I, double D){
+    PID.setP(P);
+    PID.setI(I);
+    PID.setD(D);
+}
+
+void MyPID::setP(double P){
+    PID.setP(P);
+}
+
+void MyPID::setI(double I){
+    PID.setI(I);
+}
+
+void MyPID::setD(double D){
+    PID.setD(D);
 }
 
 void MyPID::setTarget(double target){

@@ -6,6 +6,13 @@
 #include "pico/multicore.h"
 #include <array>
 #include <atomic>
+#include "pindefs.h"
+#include "i2c.h"
+#include "pid.h"
+#include "angle.h"
+
+class MyPID;
+class MyAngle;
 
 // Define the size of the FIFO
 constexpr size_t FIFO_SIZE = 2;
@@ -21,12 +28,12 @@ struct SharedFIFO {
 extern SharedFIFO fifo;
 
 
-void process_from_fifo();
+void process_from_fifo(MyPID& pid, MyAngle& angle);
 
 
 void add_to_fifo(int item);
 
 
-void getstruct(uint8_t addin);
+void getstruct(uint8_t addin, MyPID& pid, MyAngle& angle);
 
 #endif
