@@ -38,6 +38,7 @@ void getstruct(uint8_t addin, MyPID& pid, MyAngle& angle){
         }
         case I2C_GET_ANGLE: {
             // Action for addin = I2C_GET_ANGLE
+            angle.runAngleInit(pid);
             break;
         }
         case 8: {
