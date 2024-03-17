@@ -6,6 +6,10 @@ volatile float multicore_mem[64];
 MyPID::MyPID(double p, double i, double d) : PID(p,i,d){
     maxOutput = 48;
     minOutput = -48; //48 at 15V
+
+    multicore_mem[I2C_SETPIDUP] = maxOutput;
+    multicore_mem[I2C_SETPIDLOW] = minOutput;
+
     //outputRampRate = 0; //now can be set over function
     maxPWMOutput = 7.51;
     minPWMOutput = 2.51;

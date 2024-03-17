@@ -38,6 +38,7 @@ void getstruct(uint8_t addin, MyPID& pid, MyAngle& angle){
         }
         case I2C_GET_ANGLE: {
             // Action for addin = I2C_GET_ANGLE
+            //No value needs to be read
             angle.runAngleInit(pid);
             break;
         }
@@ -58,6 +59,7 @@ void getstruct(uint8_t addin, MyPID& pid, MyAngle& angle){
         case I2C_SETSPEED: {
             float target = memToFloat(I2C_SETSPEED);
             pid.setTarget(target);
+            pid.run();
             multicore_mem[I2C_SETSPEED] = target;
             break;
         }
@@ -79,16 +81,31 @@ void getstruct(uint8_t addin, MyPID& pid, MyAngle& angle){
             multicore_mem[I2C_SETD] = D;
             break;
         }
-        case 36: {
+        case I2C_SETPIDRATE: {
             // Action for addin = 36
+            float rate = memToFloat(I2C_SETPIDUP);
+            pid.setOutputRampRate(rate);
+            multicore_mem[I2C_SETPIDUP] = rate;
             break;
         }
-        case 40: {
+        case I2C_SETPIDUP: {
             // Action for addin = 40
+            float upper = memToFloat(I2C_SETPIDUP);
+            float lower = memToFloat(I2C_SETPIDLOW);
+
+            pid.setOutputLimits(upper,lower);
+            multicore_mem[I2C_SETPIDUP] = upper;
+            multicore_mem[I2C_SETPIDLOW] = lower;
             break;
         }
-        case 44: {
+        case I2C_SETPIDLOW: {
             // Action for addin = 44
+            float upper = memToFloat(I2C_SETPIDUP);
+            float lower = memToFloat(I2C_SETPIDLOW);
+
+            pid.setOutputLimits(upper,lower);
+            multicore_mem[I2C_SETPIDUP] = upper;
+            multicore_mem[I2C_SETPIDLOW] = lower;
             break;
         }
         case 48: {
@@ -159,11 +176,12 @@ void getstruct(uint8_t addin, MyPID& pid, MyAngle& angle){
             // Action for addin = 112
             break;
         }
-        case 116: {
+        case I2C_SETFREQTEMP: {
             // Action for addin = 116
+
             break;
         }
-        case 120: {
+        case I2C_SETLENGTHTEMP: {
             // Action for addin = 120
             break;
         }
@@ -175,11 +193,11 @@ void getstruct(uint8_t addin, MyPID& pid, MyAngle& angle){
             // Action for addin = 128
             break;
         }
-        case 132: {
+        case I2C_SETFREQ_A_V: {
             // Action for addin = 132
             break;
         }
-        case 136: {
+        case I2C_SETLENGTH_A_V: {
             // Action for addin = 136
             break;
         }
