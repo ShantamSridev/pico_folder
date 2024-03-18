@@ -42,11 +42,12 @@ void getstruct(uint8_t addin, MyPID& pid, MyAngle& angle){
             angle.runAngleInit(pid);
             break;
         }
-        case 8: {
+        case I2C_REQANGLE: {
             // Action for addin = 8
+            
             break;
         }
-        case 12: {
+        case I2C_REQSPEED: {
             // Action for addin = 12
             break;
         }
@@ -290,7 +291,7 @@ void getstruct(uint8_t addin, MyPID& pid, MyAngle& angle){
             break;
         }
         default: {
-            printf("DONE GOOFED. Not a multiple of 4 or accessing something wrong.");
+            printf("DONE GOOFED. Non-writtable address used.");
             break;
         }
     }
