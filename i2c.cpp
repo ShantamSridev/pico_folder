@@ -28,8 +28,12 @@ void i2c_slave_handler(i2c_inst_t *i2c, i2c_slave_event_t event) {
 
         case I2C_SLAVE_REQUEST:
             // load from memory
-            //getstruct(context.mem_address);
-            context.mem_address = 224; //DOES NOT WORK CUZ CANT INCREMENT
+            if(!context.reqwritten) {
+                getReqstruct(context.mem_address);
+                context.mem_address = 224;
+                context.reqwritten = true;
+            }
+            else
             printf("address for send = %02x\n ", context.mem_address);
             i2c_write_byte_raw(i2c, context.mem[context.mem_address]);
             context.mem_address++;
@@ -37,6 +41,7 @@ void i2c_slave_handler(i2c_inst_t *i2c, i2c_slave_event_t event) {
 
         case I2C_SLAVE_FINISH: // master has signalled Stop / Restart
             context.mem_address_written = false;
+            context.reqwritten = false;
             break;
 
         default:
@@ -79,4 +84,31 @@ float memToFloat(uint8_t address) {
     const void* source = const_cast<const void*>(reinterpret_cast<const volatile void*>(&context.mem[address]));
     std::memcpy(&result, source, sizeof(result));
     return result;
+}
+
+void feedFloatToMem(float data){
+    // Ensure the function acts on the global variable context
+    // Start by creating a union to facilitate float to byte array conversion
+    union {
+        float floatValue;
+        uint8_t bytes[4];
+    } floatToBytes;
+
+    // Assign the float value to the union
+    floatToBytes.floatValue = data;
+
+    // Copy the byte representation of the float into the buffer at the specified location
+    for (int i = 0; i < 4; i++) {
+        context.mem[224 + i] = floatToBytes.bytes[i];
+    }
+
+    // Fill the rest of the buffer with 0xFF
+    //TERMINATOR BITS
+    for (int i = 228; i < 256; i++) {
+        context.mem[i] = 0xFF;
+    }
+}
+
+void feedRBToMem(){
+
 }

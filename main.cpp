@@ -10,18 +10,7 @@
 #include "hardware/adc.h"
 #include "modules/pico-onewire/api/one_wire.h"
 
-#include "pindefs.h"
-#include "i2c.h"
 #include "structure.h"
-#include "ringbuffer.h"
-#include "pwm.h"
-#include "onewire.h"
-#include "encoder.h"
-#include "velocity.h"
-#include "current.h"
-#include "voltage.h"
-#include "pid.h"
-#include "angle.h"
 
 
 

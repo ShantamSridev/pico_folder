@@ -1,3 +1,6 @@
+#ifndef CURRENT_H
+#define CURRENT_H
+
 #include "pindefs.h"
 #include <cstdio>
 #include "pico/stdlib.h"
@@ -16,3 +19,5 @@ float readCurrent(){
   float current = (val - 2047.5f)*(39.0f/2047.5f); //CURRENT SENSOR
   return current;
 }
+
+#endif

@@ -24,6 +24,7 @@ typedef struct {
     uint8_t mem_payload[4];
     uint8_t mem_comm[5];
     bool mem_address_written;
+    bool reqwritten;
 } I2CContext;
 
 extern volatile I2CContext context;
@@ -38,4 +39,8 @@ void i2c_slave_handler(i2c_inst_t *i2c, i2c_slave_event_t event);
 void setup_slave();
 
 float memToFloat(uint8_t address);
+
+void feedFloatToMem(float data);
+
+void feedRBtoMem();
 #endif
