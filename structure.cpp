@@ -297,6 +297,7 @@ void getReqstruct(uint8_t addin){
         case I2C_REQANGLE: {
             // Action for addin = 8
             float angle = rev_check/0.6222222222; //Direct read cuz i can't use the class over multicore
+            printf("ANGLE %f\n",angle);
             feedFloatToMem(angle);
             break;
         }
@@ -488,7 +489,7 @@ void getReqstruct(uint8_t addin){
             break;
         }
         default: {
-            printf("DONE GOOFED. Non-writtable address used.");
+            printf("REQ DONE GOOFED. Non-writtable address used.");
             break;
         }
     }

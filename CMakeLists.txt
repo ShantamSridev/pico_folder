@@ -14,6 +14,8 @@ add_executable(${PROJECT}
     main.cpp
     pid.cpp
     encoder.cpp
+    onewire.cpp
+    current.cpp
     pwm.cpp
     velocity.cpp
     angle.cpp

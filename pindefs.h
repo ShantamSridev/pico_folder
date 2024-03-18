@@ -1,3 +1,6 @@
+#ifndef PINDEFS_H
+#define PINDEFS_H
+
 #include <cstdio>
 
 //Encoder Inputs
@@ -62,3 +65,5 @@
 
 #define I2C_REQANGLE 8
 #define I2C_REQSPEED 12
+
+#endif

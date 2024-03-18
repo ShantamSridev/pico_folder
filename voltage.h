@@ -1,3 +1,6 @@
+#ifndef VOLTAGE_H
+#define VOLTAGE_H
+
 #include "pindefs.h"
 #include <cstdio>
 #include "pico/stdlib.h"
@@ -17,3 +20,5 @@ void setup();
 float read_voltage_single(uint pin);
 
 float read_voltage();
+
+#endif

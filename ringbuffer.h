@@ -1,3 +1,6 @@
+#ifndef RINGBUFFER_H
+#define RINGBUFFER_H
+
 #include <iostream>
 #include <vector>
 
@@ -61,3 +64,5 @@ private:
     size_t head, tail;
     bool full;
 };
+
+#endif
