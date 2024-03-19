@@ -42,6 +42,7 @@ void i2c_slave_handler(i2c_inst_t *i2c, i2c_slave_event_t event) {
         case I2C_SLAVE_FINISH: // master has signalled Stop / Restart
             context.mem_address_written = false;
             context.reqwritten = false;
+            printf("FINITO\n");
             break;
 
         default:

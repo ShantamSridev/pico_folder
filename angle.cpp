@@ -22,17 +22,22 @@ void MyAngle::runAngleInit(MyPID& control){
 
 void MyAngle::setAngle(double ReqAngle, MyPID& control){
     printf("Starting setAngle\n");
-    control.setTarget(8);
+    control.setTarget(5);
     control.run();
+    double offset = fmod((ReqAngle - 1 + 360), 360);//Set offset of 1 to account for pid delay
     double currentAngle  = findAngle();
-    int Req_Pulse = angleToPulse(ReqAngle);
+    int Req_Pulse = angleToPulse(offset);
+
     while (rev_check != Req_Pulse){
         //printf("rev: %d\n",rev_check);
     }
-    //printf("rev: %d\n",rev_check);
-    printf("Finished setAngle\n");
     control.setTarget(0);
     control.run();
+    //printf("rev: %d\n",rev_check);
+    printf("Finished setAngle\n");
+    //printf("%d\n", rev_check);
+    printf("set an angle of= %f\n",findAngle());
+    
 }
 
 int MyAngle::angleToPulse(double requiredAngle) {

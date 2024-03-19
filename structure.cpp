@@ -44,6 +44,7 @@ void getstruct(uint8_t addin, MyPID& pid, MyAngle& angle){
         }
         case I2C_SETANGLE: {
             float Requiredangle = memToFloat(I2C_SETANGLE);
+            printf("ANGLE %f\n",Requiredangle);
             angle.setAngle(Requiredangle, pid);
             multicore_mem[I2C_SETANGLE] = Requiredangle;
             break;
@@ -296,7 +297,8 @@ void getReqstruct(uint8_t addin){
         }
         case I2C_REQANGLE: {
             // Action for addin = 8
-            float angle = rev_check/0.6222222222; //Direct read cuz i can't use the class over multicore
+            float angle = (rev_check)/0.6222222222; //Direct read cuz i can't use the class over multicore
+            printf("rev_check %d\n", rev_check);
             printf("ANGLE %f\n",angle);
             feedFloatToMem(angle);
             break;
