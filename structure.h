@@ -19,6 +19,7 @@
 #include "voltage.h"
 #include "pid.h"
 #include "angle.h"
+#include "RBCurrentVolt.h"
 
 class MyPID;
 class MyAngle;
@@ -36,6 +37,9 @@ struct SharedFIFO {
 // Declare the shared FIFO instance
 extern SharedFIFO fifo;
 
+
+RingBuffer<float> RBCurrent;
+RingBuffer<float> RBVoltage;
 
 void process_from_fifo(MyPID& pid, MyAngle& angle);
 

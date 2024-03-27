@@ -1,66 +1,63 @@
 #ifndef RINGBUFFER_H
 #define RINGBUFFER_H
 
-#include <iostream>
 #include <vector>
+#include <cstddef> // for size_t
 
-template<typename T, size_t Size>
+template<typename T>
 class RingBuffer {
 public:
-    RingBuffer() : head(0), tail(0), full(false) {}
+    explicit RingBuffer(size_t capacity)
+        : buffer(capacity), head(0), tail(0), full(false) {}
 
-    bool push(const T& item) {
-        if(full) {
-            return false; // Buffer is full, cannot push
-        }
-
+    void push(T item) {
         buffer[tail] = item;
-        tail = (tail + 1) % Size;
-
-        full = tail == head; // If tail catches up to head, buffer is full
-
-        return true;
-    }
-
-    bool pop(T& item) {
-        if(isEmpty()) {
-            return false; // Buffer is empty, cannot pop
+        tail = (tail + 1) % buffer.size();
+        full = tail == head;
+        if (full) {
+            head = (head + 1) % buffer.size(); // Overwrite oldest data
         }
-
-        item = buffer[head];
-        head = (head + 1) % Size;
-        full = false; // Popping an item always makes the buffer not full
-
-        return true;
     }
 
-    bool isFull() const {
-        return full;
+    T pop() {
+        if (isEmpty()) {
+            printf("Attempt to pop from empty buffer");
+            return 0;
+        }
+        auto val = buffer[head];
+        head = (head + 1) % buffer.size();
+        full = false;
+        return val;
     }
 
     bool isEmpty() const {
         return (!full && (head == tail));
     }
 
-    void clear() {
-        head = tail;
-        full = false;
+    void resize(size_t new_size) {
+        std::vector<T> new_buffer(new_size);
+        size_t currentSize = size();
+        for (size_t i = 0; i < currentSize; i++) {
+            new_buffer[i] = pop(); // This also moves head
+        }
+        buffer.swap(new_buffer);
+        head = 0;
+        tail = currentSize % new_size;
+        full = tail == 0 && new_size <= currentSize;
     }
 
     size_t size() const {
-        if(full) {
-            return Size;
+        if (full) {
+            return buffer.size();
         }
-
-        if(tail >= head) {
+        if (tail >= head) {
             return tail - head;
         }
-
-        return Size + tail - head;
+        return buffer.size() + tail - head;
     }
 
 private:
-    std::vector<T> buffer{Size};
+    std::vector<T> buffer;
     size_t head, tail;
     bool full;
 };

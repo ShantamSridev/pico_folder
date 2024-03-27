@@ -101,24 +101,8 @@ void getstruct(uint8_t addin, MyPID& pid, MyAngle& angle){
             multicore_mem[I2C_SETPIDLOW] = lower;
             break;
         }
-        case 48: {
-            // Action for addin = 48
-            break;
-        }
         case 52: {
             // Action for addin = 52
-            break;
-        }
-        case 56: {
-            // Action for addin = 56
-            break;
-        }
-        case 60: {
-            // Action for addin = 60
-            break;
-        }
-        case 64: {
-            // Action for addin = 64
             break;
         }
         case 68: {
@@ -129,44 +113,12 @@ void getstruct(uint8_t addin, MyPID& pid, MyAngle& angle){
             // Action for addin = 72
             break;
         }
-        case 76: {
-            // Action for addin = 76
-            break;
-        }
-        case 80: {
-            // Action for addin = 80
-            break;
-        }
-        case 84: {
-            // Action for addin = 84
-            break;
-        }
-        case 88: {
-            // Action for addin = 88
-            break;
-        }
-        case 92: {
-            // Action for addin = 92
-            break;
-        }
-        case 96: {
-            // Action for addin = 96
-            break;
-        }
         case 100: {
             // Action for addin = 100
             break;
         }
         case 104: {
             // Action for addin = 104
-            break;
-        }
-        case 108: {
-            // Action for addin = 108
-            break;
-        }
-        case 112: {
-            // Action for addin = 112
             break;
         }
         case I2C_SETFREQTEMP: {
@@ -178,28 +130,19 @@ void getstruct(uint8_t addin, MyPID& pid, MyAngle& angle){
             // Action for addin = 120
             break;
         }
-        case 124: {
-            // Action for addin = 124
-            break;
-        }
-        case 128: {
-            // Action for addin = 128
-            break;
-        }
         case I2C_SETFREQ_A_V: {
             // Action for addin = 132
+            float frequency = memToFloat(I2C_SETFREQ_A_V);
+            set_timer_CurrAndVolt(uint32_t(frequency));
+            multicore_mem[I2C_SETFREQ_A_V] = frequency;
             break;
         }
         case I2C_SETLENGTH_A_V: {
             // Action for addin = 136
-            break;
-        }
-        case 140: {
-            // Action for addin = 140
-            break;
-        }
-        case 144: {
-            // Action for addin = 144
+            float length = memToFloat(I2C_SETLENGTH_A_V);
+            RBCurrent.resize(uint32_t(length));
+            RBVoltage.resize(uint32_t(length));
+            multicore_mem[I2C_SETLENGTH_A_V] = length;
             break;
         }
         case 148: {

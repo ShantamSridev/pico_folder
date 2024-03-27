@@ -21,6 +21,7 @@ add_executable(${PROJECT}
     angle.cpp
     i2c.cpp
     structure.cpp
+    RBCurrentVolt.cpp
     modules/MiniPID/MiniPID.cpp
 )
 
